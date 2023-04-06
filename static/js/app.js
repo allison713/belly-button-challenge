@@ -13,14 +13,14 @@ d3.select("body").append("div").attr("id","plot");
 d3.json(url).then(function(importedData) {
   let data = importedData;
 
-
-  //*********Find a way to turn the y-values into a list so they plot next to each other* */
   //Start with a graph pre-loaded
   function init() {
+    let names = data.samples[0].otu_ids.slice(0,11).map(id => `OTU ${id}`)
+    let text = data.samples[0].otu_labels.slice(0,11).map(label => label)
     let trace = {
       x: data.samples[0].sample_values.slice(0,11),
-      y: data.samples[0].otu_ids.slice(0,11).map(String),
-      text: data.samples[0].otu_ids.slice(0,11).map(String),
+      y: names,
+      text: text,
       type: "bar",
       orientation: "h"
     };
@@ -33,9 +33,6 @@ d3.json(url).then(function(importedData) {
 
     Plotly.newPlot("plot", traceData, layout);
   };
-
-
-
 
   console.log(data);
 
