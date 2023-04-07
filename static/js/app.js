@@ -1,9 +1,5 @@
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
 
-//Add a space for the graphs on the webpage
-d3.select("body").append("div").attr("id","bar_plot");
-d3.select("body").append("div").attr("id","bubble_chart");
-
 // Fetch the JSON data and add names to drop down list.
 d3.json(url).then(function(importedData) {
   let data = importedData;
@@ -34,9 +30,12 @@ d3.json(url).then(function(importedData) {
 
     let layout = {
       title: `Top 10 OTUs for ${data.samples[0].id}`,
+      autosize: false,
+      width: 1100,
+      height: 450
     }
 
-    Plotly.newPlot("bar_plot", traceData, layout);
+    Plotly.newPlot("bar", traceData, layout);
   };
 
   //Start with a bubble graph pre-loaded
@@ -60,10 +59,13 @@ d3.json(url).then(function(importedData) {
     let traceData = [trace];
 
     let layout = {
-      title: `OTUs by sample size for ${data.samples[0].id}`
+      title: `OTUs by sample size for ${data.samples[0].id}`,
+      autosize: false,
+      width: 1250,
+      height: 500
     }
 
-    Plotly.newPlot("bubble_chart", traceData, layout);
+    Plotly.newPlot("bubble", traceData, layout);
   };
 
   //Add name IDs to the dropdown menu list
@@ -123,9 +125,12 @@ d3.json(url).then(function(importedData) {
     let trace = [update];
     let layout = {
       title: `Top 10 OTUs for ${title}`,
+      autosize: false,
+      width: 1100,
+      height: 450
     }
     //new graph
-    Plotly.newPlot("bar_plot", trace, layout);
+    Plotly.newPlot("bar", trace, layout);
   };
 
   //Function to change graph when dropdown is selected
@@ -157,10 +162,13 @@ d3.json(url).then(function(importedData) {
 
     let trace2 = [update2];
     let layout2 = {
-      title: `OTUs by sample size for ${title2}`
+      title: `OTUs by sample size for ${title2}`,
+      autosize: false,
+      width: 1250,
+      height: 500
     }
     //new graph
-    Plotly.newPlot("bubble_chart", trace2, layout2);
+    Plotly.newPlot("bubble", trace2, layout2);
   }};
 
   init();
