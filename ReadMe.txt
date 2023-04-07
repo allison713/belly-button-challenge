@@ -12,3 +12,6 @@ Sourced to assist in editing drop down menus and triggering a change.
 
  - UTA class assignment 14-Interactive-Visualizations > 2 > Activities > 09-Stu_Top_Ten_Greek_Gods
 Sourced to assist in creating horizontal bar charts.
+
+ - Stack Overflow tip for running multiple functions at once. 
+ https://stackoverflow.com/questions/24658374/calling-two-functions-on-same-click-event-with-d3-js
