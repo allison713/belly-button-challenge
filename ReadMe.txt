@@ -15,3 +15,6 @@ Sourced to assist in creating horizontal bar charts.
 
  - Stack Overflow tip for running multiple functions at once. 
  https://stackoverflow.com/questions/24658374/calling-two-functions-on-same-click-event-with-d3-js
+
+ - Plotly documentation for sizing.
+ https://plotly.com/javascript/setting-graph-size/
