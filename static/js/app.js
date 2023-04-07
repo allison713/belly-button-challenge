@@ -10,6 +10,16 @@ d3.json(url).then(function(importedData) {
 
   //Start with a graph pre-loaded
   function init() {
+    var table = d3.select("#sample-metadata").append("table");
+    var tbody = table.append("tbody");
+    tbody.append("tr").text(`id: ${data.metadata[0].id}`).attr("id","table-row-1");
+    tbody.append("tr").text(`ethnicity: ${data.metadata[0].ethnicity}`).attr("id","table-row-2");
+    tbody.append("tr").text(`gender: ${data.metadata[0].gender}`).attr("id","table-row-3");
+    tbody.append("tr").text(`age: ${data.metadata[0].age}`).attr("id","table-row-4");
+    tbody.append("tr").text(`location: ${data.metadata[0].location}`).attr("id","table-row-5");
+    tbody.append("tr").text(`bbtype: ${data.metadata[0].bbtype}`).attr("id","table-row-6");
+    tbody.append("tr").text(`wfreq: ${data.metadata[0].wfreq}`).attr("id","table-row-7");
+    
     let names = data.samples[0].otu_ids.slice(0,11).map(id => `OTU ${id}`)
     let text = data.samples[0].otu_labels.slice(0,11).map(label => label)
     let trace = {
@@ -63,9 +73,28 @@ d3.json(url).then(function(importedData) {
 
   //Trigger to update the graph
   d3.selectAll("#selDataset").on("change", function() {
+    updatedemo();
     updatePlotly();
     updatePlotly2();
   });
+
+  //Function to update demographic information when dropdown is selected
+  function updatedemo() {
+    // Use D3 to select the dropdown menu
+    let dropdownMenu = d3.select("#selDataset");
+    // Assign the value of the dropdown menu option to a variable
+    let name = dropdownMenu.property("value");
+    // Loop to find a match to the new dropdown value.
+    for (let i=0;i<data.names.length;i++){
+      if (data.samples[i].id == name) {
+        d3.select("#table-row-1").text(`id: ${data.metadata[i].id}`);
+        d3.select("#table-row-2").text(`ethnicity: ${data.metadata[i].ethnicity}`);
+        d3.select("#table-row-3").text(`gender: ${data.metadata[i].gender}`);
+        d3.select("#table-row-4").text(`age: ${data.metadata[i].age}`);
+        d3.select("#table-row-5").text(`location: ${data.metadata[i].location}`);
+        d3.select("#table-row-6").text(`bbtype: ${data.metadata[i].bbtype}`);
+        d3.select("#table-row-7").text(`wfreq: ${data.metadata[i].wfreq}`);
+    }}};
 
   //Function to change graph when dropdown is selected
   function updatePlotly() {
