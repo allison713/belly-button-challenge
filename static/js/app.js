@@ -28,7 +28,7 @@ d3.json(url).then(function(importedData) {
     let traceData = [trace];
 
     let layout = {
-      title: `OTU for ${data.samples[0].id}`,
+      title: `Top 10 OTUs for ${data.samples[0].id}`,
     }
 
     Plotly.newPlot("plot", traceData, layout);
@@ -48,24 +48,30 @@ d3.json(url).then(function(importedData) {
   function updatePlotly() {
     // Use D3 to select the dropdown menu
     let dropdownMenu = d3.select("#selDataset");
-
     // Assign the value of the dropdown menu option to a variable
     let name = dropdownMenu.property("value");
+    // Loop to find a match to the new dropdown value.
+    for (let i=0;i<data.names.length;i++){
+      if (data.samples[i].id == name) {
+        var xChoice = data.samples[i].sample_values.slice(0,11);
+        var yChoice = data.samples[i].otu_ids.slice(0,11).map(id => `OTU ${id}`);
+        var textChoice = data.samples[i].otu_labels.slice(0,11).map(label => label);
+      }
 
-    if (name === 'dataset1') {
-      x = [1, 2, 3, 4, 5];
-      y = [1, 2, 4, 8, 16];
-    }
-
-    else if (name === 'dataset2') {
-      x = [10, 20, 30, 40, 50];
-      y = [1, 10, 100, 1000, 10000];
+      update = {
+        x: xChoice,
+        y: yChoice,
+        text: textChoice,
+        type: "bar",
+        orientation: "h"
+      };
     }
 
     // Note the extra brackets around 'x' and 'y'
-    Plotly.restyle("plot", "x", [x]);
-    Plotly.restyle("plot", "y", [y]);
+    Plotly.restyle("plot", update);
   };
+
+
   init();
 });
 
