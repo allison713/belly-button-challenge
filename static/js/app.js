@@ -56,6 +56,7 @@ d3.json(url).then(function(importedData) {
         var xChoice = data.samples[i].sample_values.slice(0,11);
         var yChoice = data.samples[i].otu_ids.slice(0,11).map(id => `OTU ${id}`);
         var textChoice = data.samples[i].otu_labels.slice(0,11).map(label => label);
+        var titles = data.samples[i].id
       }
 
       update = {
@@ -67,8 +68,13 @@ d3.json(url).then(function(importedData) {
       };
     }
 
-    // Note the extra brackets around 'x' and 'y'
-    Plotly.restyle("plot", update);
+    let trace = [update];
+
+    let layout = {
+      title: `Top 10 OTUs for ${titles}`,
+    }
+
+    Plotly.newPlot("plot", trace, layout);
   };
 
 
